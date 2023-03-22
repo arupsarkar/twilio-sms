@@ -15,13 +15,13 @@ const client = require("twilio")(
 );
 
 
-app.get("/sms", async (req, res) => {
+app.get("/sms", (req, res) => {
     console.log(process.env.TWILIO_ACCOUNT_SID);
     console.log(process.env.TWILIO_AUTH_TOKEN);
     console.log(process.env.TWILIO_PHONE_NUMBER);
     const currentDateTime = moment().format("MMMM Do YYYY HH:mm:ss a");
-    await client.messages
-
+    
+    client.messages
         .create({
             body: `${currentDateTime} Good News, there is a 15% discount on all products this week`,
             from: process.env.TWILIO_PHONE_NUMBER,
@@ -35,7 +35,7 @@ app.get("/sms", async (req, res) => {
             console.log(err);
         })
         .finally(() => {
-            res.send("Message sent");
+            console.log("Done");
         });
 
 
